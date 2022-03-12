@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('projects/', views.ProjectList.as_view()),
+    path('projects/<int:pk>/', views.ProjectDetail.as_view()),
 ]
 # look at plan of endpoints ^ if we go to /projects want to see all projects
 

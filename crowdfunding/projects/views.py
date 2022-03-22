@@ -34,11 +34,14 @@ class PledgeList(APIView):
 class ProjectList(APIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    # is autoenticated wont let post but can let us see. if just isauthenticatedb will not let you get or post
+    # is autoenticated wont let post but can let us see. if just is authenticated and will not let you get or post
     # want to see project list but can't change unless we're logged in. 
 
     def get(self, request):
         projects = Project.objects.all()
+        is_open = request.query_params.get('is_open', None)
+        if is_open:
+            projects = projects.filter(is_open=is_open)
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 
@@ -55,6 +58,7 @@ class ProjectList(APIView):
             serializer.errors,
             status = status.HTTP_400_BAD_REQUEST
         )
+
 
 # whenever you make new table re-do a subset of this process
 

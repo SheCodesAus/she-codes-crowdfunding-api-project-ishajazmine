@@ -1,6 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+# categories - 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField()
+
 # Create your models here.
 class   Project(models.Model):
     title = models.CharField(max_length=200)
@@ -15,6 +20,8 @@ class   Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owner_projects'
     )
+    categories = models.ManyToManyField(Category, null = True, blank = True)
+    
 
 # pledge model
 class Pledge(models.Model):

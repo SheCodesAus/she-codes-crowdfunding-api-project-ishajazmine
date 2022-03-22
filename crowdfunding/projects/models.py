@@ -20,6 +20,7 @@ class   Project(models.Model):
 class Pledge(models.Model):
     amount = models.IntegerField()
     comment = models.CharField(max_length=200)
+    date_created = models.DateTimeField(auto_now=True)
     anonymous = models.BooleanField()
     project = models.ForeignKey(
         'Project',

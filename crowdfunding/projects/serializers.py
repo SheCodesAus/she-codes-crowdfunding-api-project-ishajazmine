@@ -1,6 +1,6 @@
 from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
-from .models import Project, Pledge
+from .models import Project, Pledge, Category, OneOffPayment
 
 # pledge serializer
 class PledgeSerializer(serializers.Serializer):
@@ -24,7 +24,8 @@ class ProjectSerializer(serializers.Serializer):
     goal = serializers.IntegerField()
     image = serializers.URLField()
     is_open = serializers.BooleanField()
-    date_created = serializers.DateTimeField()
+    date_created = serializers.ReadOnlyField()
+    # date_created = serializers.DateTimeField()
     # owner = serializers.CharField(max_length=200)
     # pledges = PledgeSerializer(many=True, read_only=True)
     owner = serializers.ReadOnlyField(source='owner.id')
@@ -47,3 +48,7 @@ class ProjectDetailSerializer(ProjectSerializer):
         instance.save()
         return instance
 
+class OneOffPaymentSerializer(serializers.Serializer):
+    amount = serializers.IntegerField()
+    is_active = serializers.BooleanField()
+    description = serializers.CharField(max_length= 200)

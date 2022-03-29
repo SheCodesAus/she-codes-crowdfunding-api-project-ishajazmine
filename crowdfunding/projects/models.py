@@ -4,7 +4,7 @@ from django.db import models
 
 # categories - 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     slug = models.SlugField()
 
 # Create your models here.
@@ -24,7 +24,14 @@ class   Project(models.Model):
     )
     # categories = models.ManyToManyField(Category, null = True, blank = True)
     # ^error message 'null has no effect on many to many field
-    categories = models.ManyToManyField(Category, blank = True)
+    # categories = models.ManyToManyField(Category, blank = True)
+    category = models.ForeignKey(
+        'Category',
+        null=True, blank =True,
+        # on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        # related_name='project_id'
+    )
     
 
 # pledge model

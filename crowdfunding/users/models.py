@@ -9,7 +9,7 @@ class Category(models.Model):
 
 # Individual User Model
 class CustomUser(AbstractUser):
-    birth_name = models.CharField(max_length=200)
+    birth_name = models.CharField(max_length=200, null = True, blank = True)
     image = models.URLField(null = True, blank = True)
     bio = models.TextField(default = "", null = True, blank = True)
     pass
